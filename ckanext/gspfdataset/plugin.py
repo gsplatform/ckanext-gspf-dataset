@@ -9,9 +9,19 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
 
     def _modify_package_schema(self, schema):
         schema.update({
-            'custom_text': [tk.get_validator('ignore_missing'),
+            'spatial': [tk.get_validator('ignore_missing'),
+                            tk.get_converter('convert_to_extras')],
+            'quality': [tk.get_validator('ignore_missing'),
+                            tk.get_converter('convert_to_extras')],
+            'restriction': [tk.get_validator('ignore_missing'),
+                            tk.get_converter('convert_to_extras')],
+            'created_date': [tk.get_validator('ignore_missing'),
                             tk.get_converter('convert_to_extras')]
         })
+        schema['resources'].update({
+                'metadata_type' : [ tk.get_validator('ignore_missing') ],
+                'data_crs' : [ tk.get_validator('ignore_missing') ]
+                })
         return schema
 
     def create_package_schema(self):
