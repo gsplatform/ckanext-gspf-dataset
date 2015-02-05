@@ -16,7 +16,7 @@ setup(
     url='http://georepublic.co.jp/',
     license='AGPL',
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
-    namespace_packages=['ckanext', 'ckanext.gspf-dataset'],
+    namespace_packages=['ckanext', 'ckanext.gspfdataset'],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
@@ -24,6 +24,8 @@ setup(
     ],
     entry_points='''
         [ckan.plugins]
+        gspf_dataset=ckanext.gspfdataset.plugin:GspfDatasetPlugin
+
         # Add plugins here, e.g.
         # myplugin=ckanext.gspf-dataset.plugin:PluginClass
     ''',

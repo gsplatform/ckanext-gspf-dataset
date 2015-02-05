@@ -1,5 +1,7 @@
 
         [ckan.plugins]
+        gspf_dataset=ckanext.gspfdataset.plugin:GspfDatasetPlugin
+
         # Add plugins here, e.g.
         # myplugin=ckanext.gspf-dataset.plugin:PluginClass
     
