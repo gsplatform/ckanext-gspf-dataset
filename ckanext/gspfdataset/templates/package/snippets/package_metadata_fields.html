@@ -1,8 +1,5 @@
 {% ckan_extends %}
 
-{% block custom_fields %}
-{% endblock %}
-
 {% block package_metadata_fields_custom %}
   {{ form.input('spatial', label='Spatial', id='field-spatial', placeholder='{"type":"POINT", "coordinates":"[139.701334,35.658517]"}', value=data.spatial, error=errors.spatial, classes=['control-medium']) }}
   {{ form.input('quality', label='データ品質', id='field-quality', placeholder='100', value=data.quality, error=errors.quality, classes=['control-medium']) }}
