@@ -2,7 +2,7 @@
 
 {% block metadata_fields %}
   {{super()}}
-  {{ form.input('metadata_type', label='メタデータ形式', id='field-metadata_type', placeholder='メタデータ形式', value=data.metadata_type, error=errors.metadata_type, classes=['control-medium']) }}
+  {{ form.input('metadata_type', label='メタデータ形式', id='field-metadata_type', placeholder='JMP2.0', value=data.metadata_type, error=errors.metadata_type, classes=['control-medium']) }}
   {{ form.input('data_crs', label='座標参照系', id='field-data_crs', placeholder='WGS 84', value=data.data_crs, error=errors.data_crs, classes=['control-medium']) }}
 
 {% endblock %}
