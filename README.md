@@ -3,7 +3,7 @@
 ## Requirements
 
 * Tested against **CKAN 2.2.1**
-* Requires **ckanext-spatial* Plugin
+* Requires **ckanext-spatial** Plugin
 
 ## Installation
 
