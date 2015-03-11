@@ -36,10 +36,21 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
 
     def show_package_schema(self):
         schema = super(GspfDatasetPlugin, self).show_package_schema()
+
         schema.update({
-            'custom_text': [tk.get_converter('convert_from_extras'),
+            'spatial': [ tk.get_converter('convert_from_extras'),
+                            tk.get_validator('ignore_missing')],
+            'quality': [ tk.get_converter('convert_from_extras'),
+                            tk.get_validator('ignore_missing') ],
+            'restriction': [ tk.get_converter('convert_from_extras'),
+                            tk.get_validator('ignore_missing')],
+            'created_date': [tk.get_converter('convert_from_extras'),
                             tk.get_validator('ignore_missing')]
         })
+        schema['resources'].update({
+                'metadata_type' : [ tk.get_validator('ignore_missing') ],
+                'data_crs' : [ tk.get_validator('ignore_missing') ]
+                })
         return schema
 
     def is_fallback(self):

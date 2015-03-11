@@ -1,10 +1,27 @@
 {% ckan_extends %}
 
 {% block extras %}
-  {% if pkg_dict.custom_text %}
-    <tr>
-      <th scope="row" class="dataset-label">{{ _("Custom Text") }}</th>
-      <td class="dataset-details">{{ pkg_dict.custom_text }}</td>
-    </tr>
+aaaaaa
+{{ pkg_dict }}
+  {% if pkg_dict.quality %}
+  <tr>
+    <th class="dataset-label" scope="row">データ品質</th>
+    <td class="dataset-details">{{ pkg_dict.quality }}</td>
+  </tr>
+  <tr>
+    <th class="dataset-label" scope="row">データ品質</th>
+    <td class="dataset-details">{{ pkg_dict.quality }}</td>
+  </tr>
+  <tr>
+    <th class="dataset-label" scope="row">制約</th>
+    <td class="dataset-details">{{ pkg_dict.restriction }}</td>
+  </tr>
+  <tr>
+    <th class="dataset-label" scope="row">データ作成日</th>
+    <td class="dataset-details">{{ pkg_dict.created_date }}</td>
+  </tr>
+  {% endif %}
+
+  {% if pkg_dict.extras %}
   {% endif %}
 {% endblock %}
