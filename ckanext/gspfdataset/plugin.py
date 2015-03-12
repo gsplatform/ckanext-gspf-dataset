@@ -13,7 +13,7 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
                             tk.get_converter('convert_to_extras')]
                         })
         schema.update({
-            'data_quality': [tk.get_validator('ignore_missing'),
+            'quality': [tk.get_validator('ignore_missing'),
                             tk.get_converter('convert_to_extras')]
                         })
         schema.update({
@@ -21,7 +21,7 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
                             tk.get_converter('convert_to_extras')]
                         })
         schema.update({
-            'data_created_date': [tk.get_validator('ignore_missing'),
+            'created_date': [tk.get_validator('ignore_missing'),
                             tk.get_converter('convert_to_extras')]
                         })
         schema['resources'].update({
@@ -48,7 +48,7 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
                             tk.get_validator('ignore_missing')]
                     })
         schema.update({
-            'data_quality': [ tk.get_converter('convert_from_extras'),
+            'quality': [ tk.get_converter('convert_from_extras'),
                             tk.get_validator('ignore_missing') ]
                     })
         schema.update({
@@ -56,7 +56,7 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
                             tk.get_validator('ignore_missing')]
                     })
         schema.update({
-            'data_created_date': [tk.get_converter('convert_from_extras'),
+            'created_date': [tk.get_converter('convert_from_extras'),
                             tk.get_validator('ignore_missing')]
         })
         schema['resources'].update({

@@ -7,7 +7,7 @@
   </tr>
   <tr>
     <th class="dataset-label" scope="row">データ品質</th>
-    <td class="dataset-details">{{ pkg_dict.data_quality }}</td>
+    <td class="dataset-details">{{ pkg_dict.quality }}</td>
   </tr>
   <tr>
     <th class="dataset-label" scope="row">制約</th>
@@ -15,7 +15,7 @@
   </tr>
   <tr>
     <th class="dataset-label" scope="row">データ作成日</th>
-    <td class="dataset-details">{{ pkg_dict.data_created_date }}</td>
+    <td class="dataset-details">{{ pkg_dict.created_date }}</td>
   </tr>
 
   {% for extra in h.sorted_extras(pkg_dict.extras) %}

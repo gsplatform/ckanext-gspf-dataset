@@ -2,9 +2,9 @@
 
 {% block package_metadata_fields_custom %}
   {{ form.input('spatial', label='Spatial', id='field-spatial', placeholder='{"type":"POINT", "coordinates":[139.701334,35.658517]}', value=data.spatial, error=errors.spatial, classes=['control-medium']) }}
-  {{ form.input('data_quality', label='データ品質', id='field-data_quality', placeholder='100', value=data.quality, error=errors.data_quality, classes=['control-medium']) }}
+  {{ form.input('quality', label='データ品質', id='field-quality', placeholder='100', value=data.quality, error=errors.quality, classes=['control-medium']) }}
   {{ form.input('restriction', label='制約', id='field-restriction', placeholder='', value=data.restriction, error=errors.restriction, classes=['control-medium']) }}
-  {{ form.input('data_created_date', label='データ作成日', id='field-data_created_date', placeholder='2015/10/10', value=data.data_created_date, error=errors.created_date, classes=['control-medium']) }}
+  {{ form.input('created_date', label='データ作成日', id='field-created_date', placeholder='2015/10/10', value=data.created_date, error=errors.created_date, classes=['control-medium']) }}
 
   {{ super() }}
 
