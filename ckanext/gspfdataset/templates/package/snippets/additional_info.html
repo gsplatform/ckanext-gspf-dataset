@@ -1,16 +1,13 @@
 {% ckan_extends %}
 
 {% block extras %}
-aaaaaa
-{{ pkg_dict }}
-  {% if pkg_dict.quality %}
   <tr>
-    <th class="dataset-label" scope="row">データ品質</th>
-    <td class="dataset-details">{{ pkg_dict.quality }}</td>
+    <th class="dataset-label" scope="row">Spatial</th>
+    <td class="dataset-details">{{ pkg_dict.spatial }}</td>
   </tr>
   <tr>
     <th class="dataset-label" scope="row">データ品質</th>
-    <td class="dataset-details">{{ pkg_dict.quality }}</td>
+    <td class="dataset-details">{{ pkg_dict.data_quality }}</td>
   </tr>
   <tr>
     <th class="dataset-label" scope="row">制約</th>
@@ -18,10 +15,14 @@ aaaaaa
   </tr>
   <tr>
     <th class="dataset-label" scope="row">データ作成日</th>
-    <td class="dataset-details">{{ pkg_dict.created_date }}</td>
+    <td class="dataset-details">{{ pkg_dict.data_created_date }}</td>
   </tr>
-  {% endif %}
 
-  {% if pkg_dict.extras %}
-  {% endif %}
+  {% for extra in h.sorted_extras(pkg_dict.extras) %}
+    {% set key, value = extra %}
+  <tr rel="dc:relation" resource="_:extra{{ i }}">
+    <th scope="row" class="dataset-label" property="rdfs:label">{{ _(key) }}</th>
+    <td class="dataset-details" property="rdf:value">{{ value }}</td>
+  </tr>
+  {% endfor %}
 {% endblock %}
