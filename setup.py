@@ -23,5 +23,6 @@ setup(
     entry_points='''
         [ckan.plugins]
         gspf_dataset=ckanext.gspfdataset.plugin:GspfDatasetPlugin
+        gspf_organization=ckanext.gspfdataset.plugin:GspfOrganizationPlugin
     ''',
 )

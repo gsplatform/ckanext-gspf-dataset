@@ -1,13 +1,18 @@
 import ckan.plugins as p
 import ckan.plugins.toolkit as tk
-
+from ckan.lib.plugins import DefaultOrganizationForm
+from routes.mapper import SubMapper
+from logging import getLogger
 
 class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
-    p.implements(p.IDatasetForm)
-    p.implements(p.IConfigurer)
+    p.implements(p.IDatasetForm, inherit=True)
+    p.implements(p.IConfigurer, inherit=True)
 
 
     def _modify_package_schema(self, schema):
+        schema.update({
+            '__before': [self.thumb_converter]
+                        })
         schema.update({
             'spatial': [tk.get_validator('ignore_missing'),
                             tk.get_converter('convert_to_extras')]
@@ -22,6 +27,10 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
                         })
         schema.update({
             'created_date': [tk.get_validator('ignore_missing'),
+                            tk.get_converter('convert_to_extras')]
+                        })
+        schema.update({
+            'thumbnail_url': [tk.get_validator('ignore_missing'),
                             tk.get_converter('convert_to_extras')]
                         })
         schema['resources'].update({
@@ -79,3 +88,41 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
         # Add this plugin's templates dir to CKAN's extra_template_paths, so
         # that CKAN will use this plugin's custom templates.
         tk.add_template_directory(config, 'templates')
+
+    def thumb_converter(self, key, flattened_data, errors, context):
+        return True
+
+
+class GspfOrganizationPlugin(p.SingletonPlugin, DefaultOrganizationForm):
+    p.implements(p.IGroupForm, inherit=True)
+    p.implements(p.IRoutes, inherit=True)
+
+    #IRoutes
+    def before_map(self, map):
+        org_controller = 'ckan.controllers.organization:OrganizationController'
+        with SubMapper(map, controller=org_controller) as m:
+            m.connect('organization_activity', '/organization/activity/{id}/{offset}',
+            action='activity', ckan_icon='time')
+        return map
+
+
+    #IGroupForm
+    def is_fallback(self):
+        return False
+
+    def group_types(self):
+        return ['organization']
+
+    def form_to_db_schema(self):
+        default_validator = [p.toolkit.get_validator('ignore_missing'), p.toolkit.get_converter('convert_to_extras')]
+        schema = super(GspfOrganizationPlugin, self).form_to_db_schema()
+        schema.update({
+            'department': default_validator,
+            'contact': default_validator,
+            'address': default_validator,
+            'phone': default_validator,
+            'mail': default_validator,
+            'type': default_validator
+        })
+        return schema
+

@@ -1,0 +1,10 @@
+{% ckan_extends %}
+
+{% block custom_fields %}
+  {{ form.input('department', label=_('Department'), id='field-department', placeholder=_('department'), value=data.department, error=errors.department, classes=['control-medium']) }}
+  {{ form.input('contact', label=_('Contact'), id='field-contact', placeholder=_('contact'), value=data.contact, error=errors.contact, classes=['control-medium']) }}
+  {{ form.input('address', label=_('Address'), id='field-address', placeholder=_('address'), value=data.address, error=errors.address, classes=['control-medium']) }}
+  {{ form.input('phone', label=_('Phone'), id='field-phone', placeholder=_('phone'), value=data.phone, error=errors.phone, classes=['control-medium']) }}
+  {{ form.input('mail', label=_('Mail'), id='field-mail', placeholder=_('mail'), value=data.mail, error=errors.mail, classes=['control-medium']) }}
+  {{ form.input('type', label=_('Type'), id='field-type', placeholder=_('type'), value=data.type, error=errors.type, classes=['control-medium']) }}
+{% endblock %}
