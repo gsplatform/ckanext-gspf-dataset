@@ -4,5 +4,8 @@
   {{super()}}
   {{ form.input('metadata_type', label='メタデータ形式', id='field-metadata_type', placeholder='JMP2.0', value=data.metadata_type, error=errors.metadata_type, classes=['control-medium']) }}
   {{ form.input('data_crs', label='座標参照系', id='field-data_crs', placeholder='WGS 84', value=data.data_crs, error=errors.data_crs, classes=['control-medium']) }}
+  {{ form.input('acknowledgement', label='注意事項', id='field-acknowledgement', placeholder='', value=data.acknowledgement, error=errors.acknowledgement, classes=['control-medium']) }}
+  {{ form.input('tos', label='利用規約', id='field-tos', placeholder='', value=data.tos, error=errors.tos, classes=['control-medium']) }}
+  {{ form.input('selection_type', label='選択単位', id='field-selection_type', placeholder='', value=data.selection_type, error=errors.selection_type, classes=['control-medium']) }}
 
 {% endblock %}

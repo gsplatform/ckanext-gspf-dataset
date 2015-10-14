@@ -10,32 +10,26 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
 
 
     def _modify_package_schema(self, schema):
+        default_validator = [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')]
         schema.update({
-            '__before': [self.thumb_converter]
-                        })
-        schema.update({
-            'spatial': [tk.get_validator('ignore_missing'),
-                            tk.get_converter('convert_to_extras')]
-                        })
-        schema.update({
-            'quality': [tk.get_validator('ignore_missing'),
-                            tk.get_converter('convert_to_extras')]
-                        })
-        schema.update({
-            'restriction': [tk.get_validator('ignore_missing'),
-                            tk.get_converter('convert_to_extras')]
-                        })
-        schema.update({
-            'created_date': [tk.get_validator('ignore_missing'),
-                            tk.get_converter('convert_to_extras')]
-                        })
-        schema.update({
-            'thumbnail_url': [tk.get_validator('ignore_missing'),
-                            tk.get_converter('convert_to_extras')]
-                        })
+            '__before': [self.thumb_converter],
+            'spatial': default_validator,
+            'quality': default_validator,
+            'restriction': default_validator,
+            'created_date': default_validator,
+            'charge': default_validator,
+            'emergency': default_validator,
+            'area': default_validator,
+            'thumbnail_url': default_validator,
+            'fee': default_validator,
+            'license_agreement': default_validator
+        })
         schema['resources'].update({
                 'metadata_type' : [ tk.get_validator('ignore_missing') ],
-                'data_crs' : [ tk.get_validator('ignore_missing') ]
+                'data_crs' : [ tk.get_validator('ignore_missing') ],
+                'acknowledgement' : [ tk.get_validator('ignore_missing') ],
+                'tos' : [ tk.get_validator('ignore_missing') ],
+                'selection_type' : [ tk.get_validator('ignore_missing') ]
                 })
         return schema
 
@@ -51,26 +45,27 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
 
     def show_package_schema(self):
         schema = super(GspfDatasetPlugin, self).show_package_schema()
-
+        default_validator = [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')]
         schema.update({
-            'spatial': [ tk.get_converter('convert_from_extras'),
-                            tk.get_validator('ignore_missing')]
-                    })
-        schema.update({
-            'quality': [ tk.get_converter('convert_from_extras'),
-                            tk.get_validator('ignore_missing') ]
-                    })
-        schema.update({
-            'restriction': [ tk.get_converter('convert_from_extras'),
-                            tk.get_validator('ignore_missing')]
-                    })
-        schema.update({
-            'created_date': [tk.get_converter('convert_from_extras'),
-                            tk.get_validator('ignore_missing')]
+            '__before': [self.thumb_converter],
+            'spatial': default_validator,
+            'quality': default_validator,
+            'restriction': default_validator,
+            'created_date': default_validator,
+            'charge': default_validator,
+            'emergency': default_validator,
+            'area': default_validator,
+            'thumbnail_url': default_validator,
+            'fee': default_validator,
+            'license_agreement': default_validator
         })
+
         schema['resources'].update({
                 'metadata_type' : [ tk.get_validator('ignore_missing') ],
-                'data_crs' : [ tk.get_validator('ignore_missing') ]
+                'data_crs' : [ tk.get_validator('ignore_missing') ],
+                'acknowledgement' : [ tk.get_validator('ignore_missing') ],
+                'tos' : [ tk.get_validator('ignore_missing') ],
+                'selection_type' : [ tk.get_validator('ignore_missing') ]
                 })
         return schema
 
