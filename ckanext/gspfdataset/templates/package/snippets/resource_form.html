@@ -4,7 +4,7 @@
   {{super()}}
   {{ form.input('metadata_type', label='メタデータ形式', id='field-metadata_type', placeholder='JMP2.0', value=data.metadata_type, error=errors.metadata_type, classes=['control-medium']) }}
   {% set format_attrs = {'data-module': 'autocomplete', 'data-module-source': '/autocomplete/crs'} %}
-  {% call form.input('crs', id='field-data_crs', label=_('Format'), placeholder='WGS 84', value=data.data_crs, error=errors.data_crs, classes=['control-medium'], attrs=format_attrs) %}
+  {% call form.input('data_crs', id='field-data_crs', label='座標参照系', placeholder='WGS 84', value=data.data_crs, error=errors.data_crs, classes=['control-medium'], attrs=format_attrs) %}
   <span class="info-block info-block-small">
     <i class="icon-info-sign"></i>
       {{ _('This will be guessed automatically. Leave blank if you wish') }}
