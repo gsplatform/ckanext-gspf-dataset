@@ -3,7 +3,13 @@
 {% block metadata_fields %}
   {{super()}}
   {{ form.input('metadata_type', label='メタデータ形式', id='field-metadata_type', placeholder='JMP2.0', value=data.metadata_type, error=errors.metadata_type, classes=['control-medium']) }}
-  {{ form.input('data_crs', label='座標参照系', id='field-data_crs', placeholder='WGS 84', value=data.data_crs, error=errors.data_crs, classes=['control-medium']) }}
+  {% set format_attrs = {'data-module': 'autocomplete', 'data-module-source': '/autocomplete/crs'} %}
+  {% call form.input('data_crs', id='field-data_crs', label='座標参照系', placeholder='WGS 84', value=data.data_crs, error=errors.data_crs, classes=['control-medium'], attrs=format_attrs) %}
+  <span class="info-block info-block-small">
+    <i class="icon-info-sign"></i>
+      {{ _('This will be guessed automatically. Leave blank if you wish') }}
+  </span>
+  {% endcall %}
   {{ form.input('acknowledgement', label='注意事項', id='field-acknowledgement', placeholder='', value=data.acknowledgement, error=errors.acknowledgement, classes=['control-medium']) }}
   {{ form.input('tos', label='利用規約', id='field-tos', placeholder='', value=data.tos, error=errors.tos, classes=['control-medium']) }}
   {{ form.input('selection_type', label='選択単位', id='field-selection_type', placeholder='', value=data.selection_type, error=errors.selection_type, classes=['control-medium']) }}

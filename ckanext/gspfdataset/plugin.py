@@ -1,13 +1,20 @@
 import ckan.plugins as p
 import ckan.plugins.toolkit as tk
 from ckan.lib.plugins import DefaultOrganizationForm
+import ckan.lib.base as base
 from routes.mapper import SubMapper
 from logging import getLogger
+from ckan.common import _, c, request, response
 
 class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
     p.implements(p.IDatasetForm, inherit=True)
     p.implements(p.IConfigurer, inherit=True)
+    p.implements(p.IRoutes, inherit=True)
 
+    #IRoutes
+    def before_map(self, map):
+        map.connect('crs', '/{text}/autocomplete/crs', controller='ckanext.gspfdataset.plugin:GspfDatasetUtilController', action='crs_json')
+        return map
 
     def _modify_package_schema(self, schema):
         default_validator = [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')]
@@ -83,6 +90,7 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
         # Add this plugin's templates dir to CKAN's extra_template_paths, so
         # that CKAN will use this plugin's custom templates.
         tk.add_template_directory(config, 'templates')
+        tk.add_public_directory(config, 'public')
 
     def thumb_converter(self, key, flattened_data, errors, context):
         return True
@@ -98,6 +106,7 @@ class GspfOrganizationPlugin(p.SingletonPlugin, DefaultOrganizationForm):
         with SubMapper(map, controller=org_controller) as m:
             m.connect('organization_activity', '/organization/activity/{id}/{offset}',
             action='activity', ckan_icon='time')
+        map.connect('crs', '/autocomplete/crs', controller='ckanext.gspfdataset.GspfDatasetPlugin', action='crs_json')
         return map
 
 
@@ -121,3 +130,7 @@ class GspfOrganizationPlugin(p.SingletonPlugin, DefaultOrganizationForm):
         })
         return schema
 
+class GspfDatasetUtilController(base.BaseController):
+    def crs_json(self):
+        response.headers['Content-Type'] = 'application/json;charset=utf-8'
+        return base.render('package/crs.json') 
