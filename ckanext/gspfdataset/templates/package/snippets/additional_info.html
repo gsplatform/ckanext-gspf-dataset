@@ -17,6 +17,30 @@
     <th class="dataset-label" scope="row">データ作成日</th>
     <td class="dataset-details">{{ pkg_dict.created_date }}</td>
   </tr>
+  <tr>
+    <th class="dataset-label" scope="row">有償無償区分</th>
+    <td class="dataset-details">{{ pkg_dict.charge }}</td>
+  </tr>
+  <tr>
+    <th class="dataset-label" scope="row">災害時区分</th>
+    <td class="dataset-details">{{ pkg_dict.emergency }}</td>
+  </tr>
+  <tr>
+    <th class="dataset-label" scope="row">地理的範囲</th>
+    <td class="dataset-details">{{ pkg_dict.area }}</td>
+  </tr>
+  <tr>
+    <th class="dataset-label" scope="row">サムネイル画像</th>
+    <td class="dataset-details">{{ pkg_dict.thumbnail_url }}</td>
+  </tr>
+  <tr>
+    <th class="dataset-label" scope="row">価格情報</th>
+    <td class="dataset-details">{{ pkg_dict.fee }}</td>
+  </tr>
+  <tr>
+    <th class="dataset-label" scope="row">使用許諾</th>
+    <td class="dataset-details">{{ pkg_dict.license_agreement }}</td>
+  </tr>
 
   {% for extra in h.sorted_extras(pkg_dict.extras) %}
     {% set key, value = extra %}
