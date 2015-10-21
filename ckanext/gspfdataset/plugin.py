@@ -1,13 +1,20 @@
 import ckan.plugins as p
 import ckan.plugins.toolkit as tk
 from ckan.lib.plugins import DefaultOrganizationForm
+import ckan.lib.base as base
 from routes.mapper import SubMapper
 from logging import getLogger
+from ckan.common import _, c, request, response
 
 class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
     p.implements(p.IDatasetForm, inherit=True)
     p.implements(p.IConfigurer, inherit=True)
+    p.implements(p.IRoutes, inherit=True)
 
+    #IRoutes
+    def before_map(self, map):
+        map.connect('crs', '/{text}/autocomplete/crs', controller='ckanext.gspfdataset.plugin:GspfDatasetUtilController', action='crs_json')
+        return map
 
     def _modify_package_schema(self, schema):
         default_validator = [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')]
@@ -83,6 +90,7 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
         # Add this plugin's templates dir to CKAN's extra_template_paths, so
         # that CKAN will use this plugin's custom templates.
         tk.add_template_directory(config, 'templates')
+        tk.add_public_directory(config, 'public')
 
     def thumb_converter(self, key, flattened_data, errors, context):
         return True
@@ -98,6 +106,7 @@ class GspfOrganizationPlugin(p.SingletonPlugin, DefaultOrganizationForm):
         with SubMapper(map, controller=org_controller) as m:
             m.connect('organization_activity', '/organization/activity/{id}/{offset}',
             action='activity', ckan_icon='time')
+        map.connect('crs', '/autocomplete/crs', controller='ckanext.gspfdataset.GspfDatasetPlugin', action='crs_json')
         return map
 
 
@@ -121,3 +130,65 @@ class GspfOrganizationPlugin(p.SingletonPlugin, DefaultOrganizationForm):
         })
         return schema
 
+class GspfDatasetUtilController(base.BaseController):
+    def crs_json(self):
+        response.headers['Content-Type'] = 'application/json;charset=utf-8'
+        return '''
+{"ResultSet": {"Result": [
+{"Format":"EPSG:4612: JGD2000"},
+{"Format":"EPSG:4326: WGS 84"},
+{"Format":"EPSG:4301: Tokyo"},
+{"Format":"EPSG:3097: JGD2000 / UTM zone 51N"},
+{"Format":"EPSG:3098: JGD2000 / UTM zone 52N"},
+{"Format":"EPSG:3099: JGD2000 / UTM zone 53N"},
+{"Format":"EPSG:3100: JGD2000 / UTM zone 54N"},
+{"Format":"EPSG:3101: JGD2000 / UTM zone 55N"},
+{"Format":"EPSG:32651: WGS 84 / UTM zone 51N"},
+{"Format":"EPSG:32652: WGS 84 / UTM zone 52N"},
+{"Format":"EPSG:32653: WGS 84 / UTM zone 53N"},
+{"Format":"EPSG:32654: WGS 84 / UTM zone 54N"},
+{"Format":"EPSG:32655: WGS 84 / UTM zone 55N"},
+{"Format":"EPSG:3092: Tokyo / UTM zone 51N"},
+{"Format":"EPSG:3093: Tokyo / UTM zone 52N"},
+{"Format":"EPSG:3094: Tokyo / UTM zone 53N"},
+{"Format":"EPSG:3095: Tokyo / UTM zone 54N"},
+{"Format":"EPSG:3096: Tokyo / UTM zone 55N"},
+{"Format":"EPSG:2443: JGD2000 / Japan Plane Rectangular CS I"},
+{"Format":"EPSG:2444: JGD2000 / Japan Plane Rectangular CS II"},
+{"Format":"EPSG:2445: JGD2000 / Japan Plane Rectangular CS III"},
+{"Format":"EPSG:2446: JGD2000 / Japan Plane Rectangular CS IV"},
+{"Format":"EPSG:2447: JGD2000 / Japan Plane Rectangular CS V"},
+{"Format":"EPSG:2448: JGD2000 / Japan Plane Rectangular CS VI"},
+{"Format":"EPSG:2449: JGD2000 / Japan Plane Rectangular CS VII"},
+{"Format":"EPSG:2450: JGD2000 / Japan Plane Rectangular CS VIII"},
+{"Format":"EPSG:2451: JGD2000 / Japan Plane Rectangular CS IX"},
+{"Format":"EPSG:2452: JGD2000 / Japan Plane Rectangular CS X"},
+{"Format":"EPSG:2453: JGD2000 / Japan Plane Rectangular CS XI"},
+{"Format":"EPSG:2454: JGD2000 / Japan Plane Rectangular CS XII"},
+{"Format":"EPSG:2455: JGD2000 / Japan Plane Rectangular CS XIII"},
+{"Format":"EPSG:2456: JGD2000 / Japan Plane Rectangular CS XIV"},
+{"Format":"EPSG:2457: JGD2000 / Japan Plane Rectangular CS XV"},
+{"Format":"EPSG:2458: JGD2000 / Japan Plane Rectangular CS XVI"},
+{"Format":"EPSG:2459: JGD2000 / Japan Plane Rectangular CS XVII"},
+{"Format":"EPSG:2460: JGD2000 / Japan Plane Rectangular CS XVIII"},
+{"Format":"EPSG:2461: JGD2000 / Japan Plane Rectangular CS XIX"},
+{"Format":"EPSG:30161: Tokyo / Japan Plane Rectangular CS I"},
+{"Format":"EPSG:30162: Tokyo / Japan Plane Rectangular CS II"},
+{"Format":"EPSG:30163: Tokyo / Japan Plane Rectangular CS III"},
+{"Format":"EPSG:30164: Tokyo / Japan Plane Rectangular CS IV"},
+{"Format":"EPSG:30165: Tokyo / Japan Plane Rectangular CS V"},
+{"Format":"EPSG:30166: Tokyo / Japan Plane Rectangular CS VI"},
+{"Format":"EPSG:30167: Tokyo / Japan Plane Rectangular CS VII"},
+{"Format":"EPSG:30168: Tokyo / Japan Plane Rectangular CS VIII"},
+{"Format":"EPSG:30169: Tokyo / Japan Plane Rectangular CS IX"},
+{"Format":"EPSG:30170: Tokyo / Japan Plane Rectangular CS X"},
+{"Format":"EPSG:30171: Tokyo / Japan Plane Rectangular CS XI"},
+{"Format":"EPSG:30172: Tokyo / Japan Plane Rectangular CS XII"},
+{"Format":"EPSG:30173: Tokyo / Japan Plane Rectangular CS XIII"},
+{"Format":"EPSG:30174: Tokyo / Japan Plane Rectangular CS XIV"},
+{"Format":"EPSG:30175: Tokyo / Japan Plane Rectangular CS XV"},
+{"Format":"EPSG:30176: Tokyo / Japan Plane Rectangular CS XVI"},
+{"Format":"EPSG:30177: Tokyo / Japan Plane Rectangular CS XVII"},
+{"Format":"EPSG:30178: Tokyo / Japan Plane Rectangular CS XVIII"},
+{"Format":"EPSG:30179: Tokyo / Japan Plane Rectangular CS XIX"}
+]}}'''
