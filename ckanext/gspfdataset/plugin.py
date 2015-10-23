@@ -34,6 +34,8 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
         schema['resources'].update({
                 'metadata_type' : [ tk.get_validator('ignore_missing') ],
                 'data_crs' : [ tk.get_validator('ignore_missing') ],
+                'thumbnail_url' : [ tk.get_validator('ignore_missing') ],
+                'standard_price' : [ tk.get_validator('ignore_missing') ],
                 'acknowledgement' : [ tk.get_validator('ignore_missing') ],
                 'tos' : [ tk.get_validator('ignore_missing') ],
                 'selection_type' : [ tk.get_validator('ignore_missing') ]
@@ -70,6 +72,8 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
         schema['resources'].update({
                 'metadata_type' : [ tk.get_validator('ignore_missing') ],
                 'data_crs' : [ tk.get_validator('ignore_missing') ],
+                'thumbnail_url' : [ tk.get_validator('ignore_missing') ],
+                'standard_price' : [ tk.get_validator('ignore_missing') ],
                 'acknowledgement' : [ tk.get_validator('ignore_missing') ],
                 'tos' : [ tk.get_validator('ignore_missing') ],
                 'selection_type' : [ tk.get_validator('ignore_missing') ]
