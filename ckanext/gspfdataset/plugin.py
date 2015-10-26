@@ -66,7 +66,6 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
         schema = super(GspfDatasetPlugin, self).show_package_schema()
         default_validator = [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')]
         schema.update({
-            '__before': [self.thumb_converter],
             'spatial': default_validator,
             'quality': default_validator,
             'restriction': default_validator,
