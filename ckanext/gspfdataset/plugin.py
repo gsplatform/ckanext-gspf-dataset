@@ -32,7 +32,6 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
     def _modify_package_schema(self, schema):
         default_validator = [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')]
         schema.update({
-            '__before': [self.thumb_converter],
             'spatial': default_validator,
             'quality': default_validator,
             'restriction': default_validator,
@@ -104,9 +103,7 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
         # that CKAN will use this plugin's custom templates.
         tk.add_template_directory(config, 'templates')
         tk.add_public_directory(config, 'public')
-
-    def thumb_converter(self, key, flattened_data, errors, context):
-        return True
+        tk.add_resource('fantastic', 'gspfdataset')
 
 
 class GspfOrganizationPlugin(p.SingletonPlugin, DefaultOrganizationForm):

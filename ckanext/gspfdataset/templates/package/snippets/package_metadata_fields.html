@@ -8,7 +8,16 @@
   {{ form.input('charge', label='有償無償区分', id='field-charge', placeholder='', value=data.charge, error=errors.charge, classes=['control-medium']) }}
   {{ form.input('emergency', label='災害時区分', id='field-emergency', placeholder='', value=data.emergency, error=errors.emergency, classes=['control-medium']) }}
   {{ form.input('area', label='地理的範囲', id='field-area', placeholder='', value=data.area, error=errors.area, classes=['control-medium']) }}
-  {{ form.input('thumbnail_url', label='サムネイル画像', id='field-thumbnail_url', placeholder='', value=data.thumbnail_url, error=errors.thumbnail_url, classes=['control-medium']) }}
+<div class="control-group control-medium">
+  <label class="control-label" for="field-url">サムネイル</label>
+  <div class="controls ">
+    <div data-module="imagetobase64">
+      <input type="hidden" id="form_thumbnail" name="thumbnail_url" value="">
+      <input type="file" multiple="multiple" id="image-upload">
+    </div>
+  </div>
+</div>
+	{% resource 'gspfdataset/js/imagetobase64.js' %}
   {{ form.input('fee', label='価格情報', id='field-fee', placeholder='', value=data.fee, error=errors.fee, classes=['control-medium']) }}
   {{ form.input('license_agreement', label='使用許諾', id='field-license_agreement', placeholder='', value=data.license_agreement, error=errors.license_agreement, classes=['control-medium']) }}
 
