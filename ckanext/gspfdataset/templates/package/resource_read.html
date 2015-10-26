@@ -4,7 +4,7 @@
       <li>{% link_for _('Manage'), controller='package', action='resource_edit', id=pkg.name, resource_id=res.id, class_='btn', icon='wrench' %}</li>
   {% endif %}
 	{% set agreement = "NG" %}
-  {% for resource in c.package.get('resources', []) if resource['name'].encode("utf-8").encode('hex_codec') == "e588a9e794a8e8a68fe7b484" %}
+  {% for resource in c.package.get('resources', []) if resource['name'] and resource['name'].encode("utf-8").encode('hex_codec') == "e588a9e794a8e8a68fe7b484" %}
   {% set resource_agree_url = h.url_for('resource_agreement', id=c.package.id, resource_id=res.id) %}
 	  <li>
 						<a class="btn btn-primary resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ resource_agree_url }}">

@@ -1,0 +1,13 @@
+{% ckan_extends %}
+{% block heading %}
+<img src="{{ package.thumbnail_url or h.url_for_static('/base/images/placeholder-group.png') }}" alt="{{ package.name }}" />
+{{ super() }}
+
+{% endblock %}
+{% block heading_meta %}
+{{ super () }}
+{% if package.charge and package.charge.encode("utf-8").encode('hex_codec') == 'e69c89e5849f' %}
+<i class="icon-jpy"></i>
+{% else %}
+{% endif %}
+{% endblock %}
