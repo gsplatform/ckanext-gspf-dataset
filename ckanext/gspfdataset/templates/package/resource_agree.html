@@ -8,10 +8,10 @@
             {% if res.url and h.is_url(res.url) %}
               <li>
                 <a class="btn btn-primary resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}">
-                    <i class="icon-download"></i> {{ _('Download') }}
+                    <i class="icon-download"></i>利用規約を承諾する
                 </a>
                 <a class="btn btn-primary resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ resource_back_url }}">
-                     {{ _('Cancel') }}
+                     戻る
                 </a>
               </li>
             {% endif %}
