@@ -10,6 +10,8 @@
       {{ _('This will be guessed automatically. Leave blank if you wish') }}
   </span>
   {% endcall %}
+  {{ form.input('thumbnail_url', label='サムネイル', id='field-thumbnail_url', placeholder='', value=data.thumbnail_url, error=errors.thumbnail_url, classes=['control-medium']) }}
+  {{ form.input('standard_price', label='標準価格', id='field-standard_price', placeholder='', value=data.standard_price, error=errors.standard_price, classes=['control-medium']) }}
   {{ form.input('acknowledgement', label='注意事項', id='field-acknowledgement', placeholder='', value=data.acknowledgement, error=errors.acknowledgement, classes=['control-medium']) }}
   {{ form.input('tos', label='利用規約', id='field-tos', placeholder='', value=data.tos, error=errors.tos, classes=['control-medium']) }}
   {{ form.input('selection_type', label='選択単位', id='field-selection_type', placeholder='', value=data.selection_type, error=errors.selection_type, classes=['control-medium']) }}

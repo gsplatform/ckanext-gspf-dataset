@@ -35,7 +35,7 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
             'spatial': default_validator,
             'quality': default_validator,
             'restriction': default_validator,
-            'created_date': default_validator,
+            'registerd_date': default_validator,
             'charge': default_validator,
             'emergency': default_validator,
             'area': default_validator,
@@ -46,6 +46,8 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
         schema['resources'].update({
                 'metadata_type' : [ tk.get_validator('ignore_missing') ],
                 'data_crs' : [ tk.get_validator('ignore_missing') ],
+                'thumbnail_url' : [ tk.get_validator('ignore_missing') ],
+                'standard_price' : [ tk.get_validator('ignore_missing') ],
                 'acknowledgement' : [ tk.get_validator('ignore_missing') ],
                 'tos' : [ tk.get_validator('ignore_missing') ],
                 'selection_type' : [ tk.get_validator('ignore_missing') ]
@@ -69,7 +71,7 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
             'spatial': default_validator,
             'quality': default_validator,
             'restriction': default_validator,
-            'created_date': default_validator,
+            'registerd_date': default_validator,
             'charge': default_validator,
             'emergency': default_validator,
             'area': default_validator,
@@ -81,6 +83,8 @@ class GspfDatasetPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
         schema['resources'].update({
                 'metadata_type' : [ tk.get_validator('ignore_missing') ],
                 'data_crs' : [ tk.get_validator('ignore_missing') ],
+                'thumbnail_url' : [ tk.get_validator('ignore_missing') ],
+                'standard_price' : [ tk.get_validator('ignore_missing') ],
                 'acknowledgement' : [ tk.get_validator('ignore_missing') ],
                 'tos' : [ tk.get_validator('ignore_missing') ],
                 'selection_type' : [ tk.get_validator('ignore_missing') ]
